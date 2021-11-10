@@ -1,16 +1,8 @@
-# folder_structure
+# Memories
 
-A new Flutter project.
+* A flutter project where we can create the post, called memories here, which would be the discription of the travel destination one has visited.
+* Likewise, one can see other's memories also
 
-## Getting Started
+### Demo ( version: 0.0.1 )
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<video src='https://watch.screencastify.com/v/ojQvBu9hWWdB8mYojrEE' width=180/>
