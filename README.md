@@ -5,4 +5,4 @@
 
 ### Demo ( version: 0.0.1 )
 
-<video src='https://watch.screencastify.com/v/ojQvBu9hWWdB8mYojrEE' width=180/>
+https://watch.screencastify.com/v/ojQvBu9hWWdB8mYojrEE
