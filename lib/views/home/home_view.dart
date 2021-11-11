@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:folder_structure/models/post_model.dart';
 import 'package:folder_structure/utils/view_state_enum.dart';
 import 'package:folder_structure/views/home/home_view_model.dart';
