@@ -63,7 +63,9 @@ class PostView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PostImage(),
+            PostImage(
+              postId: post!.id,
+            ),
             SizedBox(
               height: 10,
             ),
