@@ -1,17 +1,26 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:folder_structure/models/post_model.dart';
+import 'package:folder_structure/views/home/home_view.dart';
+import 'package:folder_structure/views/home/home_view_model.dart';
 import 'package:folder_structure/views/post/post_view_model.dart';
 import 'package:provider/src/provider.dart';
 
 class PostView extends StatelessWidget {
-  const PostView({Key? key}) : super(key: key);
+  final Post? post;
+
+  PostView({this.post});
 
   @override
   Widget build(BuildContext context) {
-    PostViewModel _postViewModel = context.watch<
-        PostViewModel>(); // watch because we need to update UI in future if someone likes it
+    /*
+      When someone like the post, then we will run the concerned function from
+      post_view_model and thus there notifyListerns() will be called and this view will be rebuild
+    */
+
     return Scaffold(
       bottomNavigationBar: Padding(
         padding: EdgeInsets.all(
@@ -51,24 +60,31 @@ class PostView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 400.0,
-              height: 400.0,
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
-                        'https://images.unsplash.com/photo-1587135941948-670b381f08ce?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80')),
-                borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                color: Colors.redAccent,
+            CachedNetworkImage(
+              progressIndicatorBuilder: (context, url, progress) => Center(
+                child: CircularProgressIndicator(
+                  value: progress.progress,
+                ),
+              ),
+              imageUrl:
+                  'https://images.unsplash.com/photo-1587135941948-670b381f08ce?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80',
+              imageBuilder: (context, imageProvider) => Container(
+                width: 400.0,
+                height: 400.0,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                  image:
+                      DecorationImage(fit: BoxFit.cover, image: imageProvider),
+                  borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                  color: Colors.redAccent,
+                ),
               ),
             ),
             SizedBox(
@@ -79,7 +95,7 @@ class PostView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  _postViewModel.currentPost!.title!,
+                  post!.title!,
                   style: TextStyle(
                     fontFamily: 'Gilroy',
                     fontSize: 30,
@@ -91,7 +107,7 @@ class PostView extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  'By, ${_postViewModel.currentPost!.name!}',
+                  'By, ${post!.name!}',
                   style: TextStyle(
                     fontSize: 18,
                     fontStyle: FontStyle.italic,
@@ -107,7 +123,7 @@ class PostView extends StatelessWidget {
               // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  _postViewModel.currentPost!.message!,
+                  post!.message!,
                   style: TextStyle(fontSize: 20, fontFamily: 'Gilroy'),
                   // maxLines: 2,
                   // softWrap: false,
@@ -120,7 +136,7 @@ class PostView extends StatelessWidget {
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
-                itemCount: _postViewModel.currentPost!.tags!.length,
+                itemCount: post!.tags!.length,
                 itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.all(2),
                   child: Container(
@@ -130,7 +146,7 @@ class PostView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         shape: BoxShape.rectangle),
                     child: Text(
-                      "#${_postViewModel.currentPost!.tags![index]}",
+                      "#${post!.tags![index]}",
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
@@ -151,7 +167,7 @@ class PostView extends StatelessWidget {
                         iconSize: 35,
                         color: Colors.deepPurpleAccent),
                     Text(
-                      'Total Likes, ${_postViewModel.currentPost!.likes!.length}',
+                      'Total Likes, ${post!.likes!.length}',
                       style: TextStyle(fontSize: 18, fontFamily: 'Gilroy'),
                     ),
                   ],
@@ -203,7 +219,7 @@ class PostView extends StatelessWidget {
                 ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    itemCount: _postViewModel.currentPost!.comments!.length,
+                    itemCount: post!.comments!.length,
                     itemBuilder: (context, index) => Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -219,23 +235,15 @@ class PostView extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  _postViewModel.currentPost!.comments![index]
-                                      .substring(
-                                          0,
-                                          _postViewModel
-                                              .currentPost!.comments![index]
-                                              .indexOf(':')),
+                                  post!.comments![index].substring(
+                                      0, post!.comments![index].indexOf(':')),
                                   style: TextStyle(
                                       fontFamily: 'Gilroy',
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text(_postViewModel
-                                    .currentPost!.comments![index]
-                                    .substring(_postViewModel
-                                            .currentPost!.comments![index]
-                                            .indexOf(':') +
-                                        1)),
+                                Text(post!.comments![index].substring(
+                                    post!.comments![index].indexOf(':') + 1)),
                                 Divider()
                               ],
                             ),
