@@ -1,6 +1,7 @@
 import 'package:folder_structure/models/user_model.dart';
 import 'package:folder_structure/services/api.dart';
 import 'package:folder_structure/services/request_status.dart';
+import 'package:folder_structure/services/user_prefrences.dart';
 import 'package:folder_structure/utils/base_view_model.dart';
 import 'package:folder_structure/utils/view_state_enum.dart';
 
@@ -24,19 +25,28 @@ class LoginViewModel extends BaseViewModel {
     _password = password;
   }
 
+  bool isEmailValid() {
+    String emailExpression =
+        r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
+    if (!RegExp(emailExpression).hasMatch(_email!)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   userLogin() async {
     setState(ViewState.Busy);
 
     if (_email != null && _password != null) {
-      String emailExpression =
-          r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
-      if (!RegExp(emailExpression).hasMatch(_email!)) {
+      if (!isEmailValid()) {
         errorMessage = 'Email Invalid';
       } else {
         var res = await _api.login(_email!, _password!);
 
         if (res is Success) {
           _currentUser = res.response as User;
+          UserPreferences().saveUser(_currentUser!);
           errorMessage = null;
           isLoggedIn = true;
         } else if (res is Failure) {

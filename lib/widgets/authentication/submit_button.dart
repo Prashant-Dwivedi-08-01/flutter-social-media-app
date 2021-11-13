@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:folder_structure/models/user_model.dart';
+import 'package:folder_structure/services/user_prefrences.dart';
 
 class SubmitButton extends StatelessWidget {
   Object? title;
@@ -18,10 +20,9 @@ class SubmitButton extends StatelessWidget {
       onTap: () async {
         if (submitAction != null) {
           await submitAction!();
-          if (model != null && nextScreen != null) {
-            if (model.isLoggedIn) {
-              Navigator.popAndPushNamed(context, nextScreen!);
-            }
+          User user = await UserPreferences().getUser();
+          if (user.id != null) {
+            Navigator.popAndPushNamed(context, nextScreen!);
           }
         }
       },

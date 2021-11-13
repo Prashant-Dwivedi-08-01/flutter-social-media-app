@@ -1,6 +1,7 @@
 import 'package:folder_structure/models/user_model.dart';
 import 'package:folder_structure/services/api.dart';
 import 'package:folder_structure/services/request_status.dart';
+import 'package:folder_structure/services/user_prefrences.dart';
 import 'package:folder_structure/utils/base_view_model.dart';
 import 'package:folder_structure/utils/view_state_enum.dart';
 
@@ -72,6 +73,7 @@ class RegisterViewModel extends BaseViewModel {
             _firstName!, _lastName!, _email!, _password!, _confirmPassword!);
         if (res is Success) {
           _currentUser = res.response as User;
+          UserPreferences().saveUser(_currentUser!);
           errorMessage = null;
           isLoggedIn = true;
         } else if (res is Failure) {

@@ -8,6 +8,7 @@ import 'package:folder_structure/views/login/login_view.dart';
 import 'package:folder_structure/views/login/login_view_model.dart';
 import 'package:folder_structure/views/post/post_view_model.dart';
 import 'package:folder_structure/views/register/register_view_model.dart';
+import 'package:folder_structure/views/welcome_view.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: "Memories",
         debugShowCheckedModeBanner: false,
-        home: LoginView(),
+        home: WelcomeView(),
         onGenerateRoute: Navigation.generateRoutes,
       ),
     );

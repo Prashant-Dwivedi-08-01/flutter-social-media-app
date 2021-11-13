@@ -11,6 +11,7 @@ import 'package:folder_structure/widgets/post/post_likes.dart';
 import 'package:folder_structure/widgets/post/post_message.dart';
 import 'package:folder_structure/widgets/post/post_tags.dart';
 import 'package:folder_structure/widgets/post/post_title.dart';
+import 'package:folder_structure/widgets/shared/shared_drawer.dart';
 
 class PostView extends StatelessWidget {
   final Post? post;
@@ -25,6 +26,7 @@ class PostView extends StatelessWidget {
     */
 
     return Scaffold(
+      drawer: SharedDrawer(),
       bottomNavigationBar: Padding(
         padding: EdgeInsets.all(
           2.0,
@@ -47,7 +49,6 @@ class PostView extends StatelessWidget {
       ),
       backgroundColor: Color(0xffededed),
       appBar: AppBar(
-        leading: Icon(CupertinoIcons.person_alt),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),

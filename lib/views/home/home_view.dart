@@ -2,10 +2,13 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:folder_structure/services/user_prefrences.dart';
 import 'package:folder_structure/utils/view_state_enum.dart';
 import 'package:folder_structure/views/home/home_view_model.dart';
+import 'package:folder_structure/widgets/home/action_buttons.dart';
 import 'package:folder_structure/widgets/home/hot_destinations.dart';
 import 'package:folder_structure/widgets/home/more_destinations.dart';
+import 'package:folder_structure/widgets/shared/shared_drawer.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatelessWidget {
@@ -16,7 +19,8 @@ class HomeView extends StatelessWidget {
     // HomeViewModel _homeViewModel = context.watch<HomeViewModel>();
 
     return Scaffold(
-      backgroundColor: Color(0xffededed),
+      drawer: SharedDrawer(),
+      // backgroundColor: Color(0xffededed),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.deepPurpleAccent,
         onPressed: () {},
@@ -25,7 +29,6 @@ class HomeView extends StatelessWidget {
         ),
       ),
       appBar: AppBar(
-        leading: Icon(CupertinoIcons.person_alt),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -43,34 +46,40 @@ class HomeView extends StatelessWidget {
                       )
                     : Padding(
                         padding: const EdgeInsets.all(12.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Hot Destinations',
-                              style: TextStyle(
-                                  fontFamily: 'Gilroy',
-                                  fontSize: 35,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            HotDestinations(
-                              homeModel: homeModel,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'More',
-                              style: TextStyle(
-                                  fontFamily: 'Gilroy',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 30),
-                            ),
-                            MoreDestinations(
-                              homeModel: homeModel,
-                            )
-                          ],
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Hot Destinations',
+                                style: TextStyle(
+                                    fontFamily: 'Gilroy',
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              HotDestinations(
+                                homeModel: homeModel,
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              ActionButtons(),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                'More',
+                                style: TextStyle(
+                                    fontFamily: 'Gilroy',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 30),
+                              ),
+                              MoreDestinations(
+                                homeModel: homeModel,
+                              )
+                            ],
+                          ),
                         ),
                       ),
               )),

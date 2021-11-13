@@ -6,12 +6,13 @@ import 'package:folder_structure/views/home/home_view.dart';
 import 'package:folder_structure/views/login/login_view.dart';
 import 'package:folder_structure/views/post/post_view.dart';
 import 'package:folder_structure/views/register/register_view.dart';
+import 'package:folder_structure/views/welcome_view.dart';
 
 class Navigation {
   static Route<dynamic> generateRoutes(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => LoginView());
+        return MaterialPageRoute(builder: (_) => WelcomeView());
       case '/home':
         return MaterialPageRoute(builder: (_) => HomeView());
       case '/post':

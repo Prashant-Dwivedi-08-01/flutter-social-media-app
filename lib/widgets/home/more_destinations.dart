@@ -11,75 +11,74 @@ class MoreDestinations extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.separated(
-          separatorBuilder: (context, index) => Divider(),
-          itemCount: homeModel!.postList.length,
-          itemBuilder: (context, index) {
-            Post post = homeModel!.postList[index];
-            return Container(
-              padding: EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.deepPurpleAccent.shade100),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CachedNetworkImage(
-                    progressIndicatorBuilder: (context, url, progress) =>
-                        Center(
-                      child: CircularProgressIndicator(
-                        value: progress.progress,
-                      ),
-                    ),
-                    imageUrl:
-                        'https://images.unsplash.com/photo-1610878180933-123728745d22?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80',
-                    imageBuilder: (context, imageProvider) => Container(
-                      width: 150.0,
-                      height: 100.0,
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: Offset(0, 3), // changes position of shadow
-                          ),
-                        ],
-                        image: DecorationImage(
-                            fit: BoxFit.cover, image: imageProvider),
-                        borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                        color: Colors.redAccent,
-                      ),
+    return ListView.separated(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        separatorBuilder: (context, index) => Divider(),
+        itemCount: homeModel!.postList.length,
+        itemBuilder: (context, index) {
+          Post post = homeModel!.postList[index];
+          return Container(
+            padding: EdgeInsets.all(15),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.deepPurpleAccent.shade100),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CachedNetworkImage(
+                  progressIndicatorBuilder: (context, url, progress) => Center(
+                    child: CircularProgressIndicator(
+                      value: progress.progress,
                     ),
                   ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          post.title!,
-                          style: TextStyle(
-                              fontFamily: 'Gilroy',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
-                        ),
-                        Text(
-                          post.message!,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                          style: TextStyle(fontFamily: 'Gilroy', fontSize: 18),
+                  imageUrl:
+                      'https://images.unsplash.com/photo-1610878180933-123728745d22?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80',
+                  imageBuilder: (context, imageProvider) => Container(
+                    width: 150.0,
+                    height: 100.0,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 3), // changes position of shadow
                         ),
                       ],
+                      image: DecorationImage(
+                          fit: BoxFit.cover, image: imageProvider),
+                      borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                      color: Colors.redAccent,
                     ),
-                  )
-                ],
-              ),
-            );
-          }),
-    );
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        post.title!,
+                        style: TextStyle(
+                            fontFamily: 'Gilroy',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
+                      ),
+                      Text(
+                        post.message!,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: TextStyle(fontFamily: 'Gilroy', fontSize: 18),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        });
   }
 }
