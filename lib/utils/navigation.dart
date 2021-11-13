@@ -12,6 +12,8 @@ class Navigation {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => LoginView());
+      case '/home':
+        return MaterialPageRoute(builder: (_) => HomeView());
       case '/post':
         final post = settings.arguments as Post;
         return MaterialPageRoute(builder: (context) => PostView(post: post));

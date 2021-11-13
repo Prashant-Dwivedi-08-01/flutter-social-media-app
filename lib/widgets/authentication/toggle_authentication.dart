@@ -21,7 +21,8 @@ class ToggleAuthentication extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              Navigator.popAndPushNamed(context, '/register');
+              Navigator.popAndPushNamed(
+                  context, '/${functionality!.toLowerCase()}');
             },
             child: Text(
               functionality!,

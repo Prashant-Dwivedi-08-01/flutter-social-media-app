@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 
 class EntryField extends StatelessWidget {
   String? title;
-  EntryField({Key? key, this.title}) : super(key: key);
+  Function? setValue = () {};
+  bool hideText = false;
+
+  EntryField({Key? key, this.title, this.setValue, required this.hideText})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,12 @@ class EntryField extends StatelessWidget {
             height: 10,
           ),
           TextFormField(
-            obscureText: false,
+            obscureText: hideText,
+            onChanged: (String value) {
+              if (setValue != null) {
+                setValue!(value);
+              }
+            },
             decoration: InputDecoration(
               border: InputBorder.none,
               fillColor: Colors.grey.shade200, //Color(0xfff3f3f4)

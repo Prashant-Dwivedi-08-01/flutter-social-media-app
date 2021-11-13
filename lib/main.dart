@@ -5,7 +5,9 @@ import 'package:folder_structure/utils/navigation.dart';
 import 'package:folder_structure/views/home/home_view.dart';
 import 'package:folder_structure/views/home/home_view_model.dart';
 import 'package:folder_structure/views/login/login_view.dart';
+import 'package:folder_structure/views/login/login_view_model.dart';
 import 'package:folder_structure/views/post/post_view_model.dart';
+import 'package:folder_structure/views/register/register_view_model.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -20,7 +22,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => HomeViewModel()),
-        ChangeNotifierProvider(create: (_) => PostViewModel())
+        ChangeNotifierProvider(create: (_) => PostViewModel()),
+        ChangeNotifierProvider(create: (_) => LoginViewModel()),
+        ChangeNotifierProvider(create: (_) => RegisterViewModel())
       ],
       child: MaterialApp(
         title: "Memories",

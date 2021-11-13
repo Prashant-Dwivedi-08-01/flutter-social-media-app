@@ -1,4 +1,5 @@
 import 'package:folder_structure/models/post_model.dart';
+import 'package:folder_structure/models/user_model.dart';
 import 'package:folder_structure/services/request_status.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -42,7 +43,63 @@ class Api {
       }
     } catch (e) {
       return Failure(
-          code: 500, errorResponse: "Something went wrong client side");
+          code: 500,
+          errorResponse: "Something went wrong-message from client side");
+    }
+  }
+
+  Future<Object> login(String email, String password) async {
+    try {
+      var url = Uri.parse('$baseUrl/user/signin');
+      var body = {
+        "email": email,
+        "password": password,
+      };
+
+      var response = await client.post(url, body: body);
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        return Success(
+            code: response.statusCode, response: User.fromJson(data['result']));
+      } else {
+        var data = jsonDecode(response.body);
+        return Failure(
+            code: response.statusCode, errorResponse: data['message']);
+      }
+    } catch (e) {
+      return Failure(
+          code: 500,
+          errorResponse: "Something went wrong-message from client side");
+    }
+  }
+
+  Future<Object> register(String firstName, String lastName, String email,
+      String password, String confirmPassword) async {
+    try {
+      var url = Uri.parse('$baseUrl/user/signup');
+      var body = {
+        'firstName': firstName,
+        'lastName': lastName,
+        'email': email,
+        'password': password,
+        'confirmPassword': confirmPassword
+      };
+
+      var response = await client.post(url, body: body);
+      if (response.statusCode == 201) {
+        var data = jsonDecode(response.body);
+
+        return Success(
+            code: response.statusCode, response: User.fromJson(data['result']));
+      } else {
+        var data = jsonDecode(response.body);
+        return Failure(
+            code: response.statusCode, errorResponse: data['message']);
+      }
+    } catch (e) {
+      return Failure(
+          code: 500,
+          errorResponse: "Something went wrong-message from client side");
     }
   }
 }

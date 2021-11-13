@@ -3,14 +3,27 @@
 import 'package:flutter/material.dart';
 
 class SubmitButton extends StatelessWidget {
-  String? title;
-  SubmitButton({Key? key, this.title}) : super(key: key);
+  Object? title;
+  String? nextScreen;
+  dynamic model;
+  Function? submitAction = () {};
+
+  SubmitButton(
+      {Key? key, this.title, this.submitAction, this.nextScreen, this.model})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        print('Hello Login');
+      onTap: () async {
+        if (submitAction != null) {
+          await submitAction!();
+          if (model != null && nextScreen != null) {
+            if (model.isLoggedIn) {
+              Navigator.popAndPushNamed(context, nextScreen!);
+            }
+          }
+        }
       },
       child: Container(
         width: 340,
@@ -29,14 +42,16 @@ class SubmitButton extends StatelessWidget {
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
                 colors: [Color(0xfffbb448), Color(0xfff7892b)])),
-        child: Text(
-          title!,
-          style: TextStyle(
-              fontSize: 20,
-              fontFamily: 'Gilroy',
-              fontWeight: FontWeight.bold,
-              color: Colors.white),
-        ),
+        child: title is String
+            ? Text(
+                title! as String,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontFamily: 'Gilroy',
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              )
+            : title as Widget,
       ),
     );
   }
