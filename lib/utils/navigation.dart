@@ -3,16 +3,22 @@
 import 'package:flutter/material.dart';
 import 'package:folder_structure/models/post_model.dart';
 import 'package:folder_structure/views/home/home_view.dart';
+import 'package:folder_structure/views/login/login_view.dart';
 import 'package:folder_structure/views/post/post_view.dart';
+import 'package:folder_structure/views/register/register_view.dart';
 
 class Navigation {
   static Route<dynamic> generateRoutes(RouteSettings settings) {
-    final post = settings.arguments as Post;
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => HomeView());
+        return MaterialPageRoute(builder: (_) => LoginView());
       case '/post':
+        final post = settings.arguments as Post;
         return MaterialPageRoute(builder: (context) => PostView(post: post));
+      case '/login':
+        return MaterialPageRoute(builder: (context) => LoginView());
+      case '/register':
+        return MaterialPageRoute(builder: (context) => RegisterView());
       default:
         return MaterialPageRoute(
             builder: (_) => const Center(

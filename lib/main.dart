@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:folder_structure/utils/navigation.dart';
 import 'package:folder_structure/views/home/home_view.dart';
 import 'package:folder_structure/views/home/home_view_model.dart';
+import 'package:folder_structure/views/login/login_view.dart';
 import 'package:folder_structure/views/post/post_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: "Memories",
         debugShowCheckedModeBanner: false,
-        home: HomeView(),
+        home: LoginView(),
         onGenerateRoute: Navigation.generateRoutes,
       ),
     );
