@@ -94,8 +94,8 @@ class SharedDrawer extends StatelessWidget {
               title: InkWell(
                 splashColor: Colors.blue,
                 onTap: () async {
-                  UserPreferences().removeUser();
-                  loginViewModel.googleLogout();
+                  await UserPreferences().removeUser();
+                  await loginViewModel.googleLogout();
                   Navigator.pushNamedAndRemoveUntil(
                       context, '/', (route) => false);
                 },
