@@ -116,7 +116,10 @@ class LoginView extends StatelessWidget {
                         SizedBox(
                           height: 20,
                         ),
-                        GoogleLogin(),
+                        GoogleLogin(
+                          submitAction: model.googleLogin,
+                          nextScreen: '/home',
+                        ),
                         SizedBox(
                           height: 50,
                         ),
