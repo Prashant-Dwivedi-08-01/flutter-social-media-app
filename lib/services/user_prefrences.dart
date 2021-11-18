@@ -10,7 +10,7 @@ class UserPreferences {
     prefs.setString('email', user.email!);
     prefs.setString('password', user.password!);
 
-    print("User Saved Successfully");
+    // print("User Saved Successfully");
   }
 
   Future<User> getUser() async {
@@ -21,7 +21,7 @@ class UserPreferences {
     String? email = prefs.getString('email');
     String? password = prefs.getString('password');
 
-    print("User Sent Successfully");
+    // print("User Sent Successfully");
     return User(id: id, name: name, email: email, password: password);
   }
 

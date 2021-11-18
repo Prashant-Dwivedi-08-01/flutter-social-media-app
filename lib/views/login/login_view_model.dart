@@ -1,9 +1,13 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:flutter/material.dart';
 import 'package:folder_structure/models/user_model.dart';
 import 'package:folder_structure/services/api.dart';
 import 'package:folder_structure/services/request_status.dart';
 import 'package:folder_structure/services/user_prefrences.dart';
 import 'package:folder_structure/utils/base_view_model.dart';
 import 'package:folder_structure/utils/view_state_enum.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginViewModel extends BaseViewModel {
   final Api _api = Api();
@@ -18,7 +22,6 @@ class LoginViewModel extends BaseViewModel {
 
   setEmail(String email) {
     _email = email;
-    print(_email);
   }
 
   setPassword(String password) {
@@ -60,5 +63,36 @@ class LoginViewModel extends BaseViewModel {
     }
 
     setState(ViewState.Idle);
+  }
+
+  final _googleSignin = GoogleSignIn();
+
+  Future<GoogleSignInAccount?> googleLogin(BuildContext context) async {
+    GoogleSignInAccount? user = await _googleSignin.signIn();
+
+    if (user != null) {
+      User newGoogleUser = User(
+          email: user.email,
+          name: user.displayName,
+          id: user.id,
+          password: user.id);
+
+      print('Current User from Google is : ${user.displayName}');
+      _currentUser = newGoogleUser;
+      UserPreferences().saveUser(_currentUser!);
+
+      errorMessage = null;
+      isLoggedIn = true;
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Google Authentication Unsuccessful')));
+    }
+  }
+
+  googleLogout() async {
+    bool isSignIn = await _googleSignin.isSignedIn();
+    if (isSignIn) {
+      await _googleSignin.disconnect();
+    }
   }
 }

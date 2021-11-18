@@ -3,12 +3,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:folder_structure/services/user_prefrences.dart';
+import 'package:folder_structure/views/login/login_view_model.dart';
+import 'package:provider/src/provider.dart';
 
 class SharedDrawer extends StatelessWidget {
   const SharedDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    LoginViewModel loginViewModel = context.watch<LoginViewModel>();
+
     return Drawer(
       child: Container(
         color: Colors.deepPurpleAccent,
@@ -89,9 +93,9 @@ class SharedDrawer extends StatelessWidget {
               ),
               title: InkWell(
                 splashColor: Colors.blue,
-                onTap: () {
-                  UserPreferences().removeUser();
-
+                onTap: () async {
+                  await UserPreferences().removeUser();
+                  await loginViewModel.googleLogout();
                   Navigator.pushNamedAndRemoveUntil(
                       context, '/', (route) => false);
                 },

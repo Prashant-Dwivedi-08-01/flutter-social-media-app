@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:folder_structure/utils/view_state_enum.dart';
+import 'package:folder_structure/views/login/login_view_model.dart';
 import 'package:folder_structure/views/register/register_view_model.dart';
 import 'package:folder_structure/widgets/authentication/bezier_container.dart';
 import 'package:folder_structure/widgets/authentication/divider.dart';
@@ -16,6 +17,7 @@ class RegisterView extends StatelessWidget {
   const RegisterView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    LoginViewModel loginViewModel = context.watch<LoginViewModel>();
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Stack(
@@ -105,7 +107,10 @@ class RegisterView extends StatelessWidget {
                         SizedBox(
                           height: 20,
                         ),
-                        GoogleLogin(),
+                        GoogleLogin(
+                          submitAction: loginViewModel.googleLogin,
+                          nextScreen: '/home',
+                        ),
                         SizedBox(
                           height: 50,
                         ),
