@@ -90,6 +90,9 @@ class LoginViewModel extends BaseViewModel {
   }
 
   googleLogout() async {
-    await _googleSignin.disconnect();
+    bool isSignIn = await _googleSignin.isSignedIn();
+    if (isSignIn) {
+      await _googleSignin.disconnect();
+    }
   }
 }
