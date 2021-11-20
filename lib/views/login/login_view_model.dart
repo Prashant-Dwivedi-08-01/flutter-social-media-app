@@ -49,7 +49,10 @@ class LoginViewModel extends BaseViewModel {
 
         if (res is Success) {
           _currentUser = res.response as User;
+
           UserPreferences().saveUser(_currentUser!);
+          UserPreferences().saveUserToken(res.token!);
+
           errorMessage = null;
           isLoggedIn = true;
         } else if (res is Failure) {
@@ -77,7 +80,8 @@ class LoginViewModel extends BaseViewModel {
           id: user.id,
           password: user.id);
 
-      print('Current User from Google is : ${user.displayName}');
+      var token = await user.authentication;
+
       _currentUser = newGoogleUser;
       UserPreferences().saveUser(_currentUser!);
 

@@ -1,6 +1,7 @@
 import 'package:folder_structure/models/post_model.dart';
 import 'package:folder_structure/models/user_model.dart';
 import 'package:folder_structure/services/request_status.dart';
+import 'package:folder_structure/services/user_prefrences.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -60,7 +61,9 @@ class Api {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         return Success(
-            code: response.statusCode, response: User.fromJson(data['result']));
+            code: response.statusCode,
+            response: User.fromJson(data['result']),
+            token: data['token']);
       } else {
         var data = jsonDecode(response.body);
         return Failure(
@@ -91,6 +94,37 @@ class Api {
 
         return Success(
             code: response.statusCode, response: User.fromJson(data['result']));
+      } else {
+        var data = jsonDecode(response.body);
+        return Failure(
+            code: response.statusCode, errorResponse: data['message']);
+      }
+    } catch (e) {
+      return Failure(
+          code: 500,
+          errorResponse: "Something went wrong-message from client side");
+    }
+  }
+
+  Future<Object> createPost(Map<String, dynamic> post, String token) async {
+    try {
+      var url = Uri.parse('$baseUrl/posts/');
+      User user = await UserPreferences().getUser();
+
+      var rawJson = jsonEncode({...post, "name": user.name});
+
+      var headers = {
+        'Authorization': 'Bearer $token',
+        'Content-Type':
+            "application/json" // THIS IS IMPORTANT WHEN WE ARE SENDING THE RAW JSON AS BODY
+      };
+
+      var response = await client.post(url, body: rawJson, headers: headers);
+
+      if (response.statusCode == 201) {
+        var data = jsonDecode(response.body);
+        return Success(
+            code: response.statusCode, response: Post.fromJson(data));
       } else {
         var data = jsonDecode(response.body);
         return Failure(

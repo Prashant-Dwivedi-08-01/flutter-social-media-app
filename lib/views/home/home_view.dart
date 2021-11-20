@@ -23,7 +23,9 @@ class HomeView extends StatelessWidget {
       // backgroundColor: Color(0xffededed),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.deepPurpleAccent,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/createPost');
+        },
         child: Icon(
           CupertinoIcons.add_circled,
         ),
@@ -55,8 +57,11 @@ class HomeView extends StatelessWidget {
                                 'Hot Destinations',
                                 style: TextStyle(
                                     fontFamily: 'Gilroy',
-                                    fontSize: 35,
+                                    fontSize: 28,
                                     fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 10,
                               ),
                               HotDestinations(
                                 homeModel: homeModel,
@@ -73,7 +78,7 @@ class HomeView extends StatelessWidget {
                                 style: TextStyle(
                                     fontFamily: 'Gilroy',
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 30),
+                                    fontSize: 25),
                               ),
                               MoreDestinations(
                                 homeModel: homeModel,

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:folder_structure/models/user_model.dart';
 import 'package:folder_structure/services/user_prefrences.dart';
+import 'package:folder_structure/views/createPost/createpost_view.dart';
 import 'package:folder_structure/views/home/home_view.dart';
 import 'package:folder_structure/views/login/login_view.dart';
 

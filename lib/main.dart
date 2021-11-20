@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:folder_structure/utils/navigation.dart';
+import 'package:folder_structure/views/createPost/createpost_view.dart';
+import 'package:folder_structure/views/createPost/createpost_view_model.dart';
 import 'package:folder_structure/views/home/home_view.dart';
 import 'package:folder_structure/views/home/home_view_model.dart';
 import 'package:folder_structure/views/login/login_view.dart';
@@ -25,7 +27,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => HomeViewModel()),
         ChangeNotifierProvider(create: (_) => PostViewModel()),
         ChangeNotifierProvider(create: (_) => LoginViewModel()),
-        ChangeNotifierProvider(create: (_) => RegisterViewModel())
+        ChangeNotifierProvider(create: (_) => RegisterViewModel()),
+        ChangeNotifierProvider(create: (_) => CreatePostViewModel())
       ],
       child: MaterialApp(
         title: "Memories",
