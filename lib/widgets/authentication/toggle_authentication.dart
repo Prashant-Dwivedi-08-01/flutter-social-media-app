@@ -27,7 +27,7 @@ class ToggleAuthentication extends StatelessWidget {
             child: Text(
               functionality!,
               style: TextStyle(
-                  color: Color(0xfff7892b),
+                  color: Colors.deepPurpleAccent,
                   fontFamily: 'Gilroy',
                   fontWeight: FontWeight.bold),
             ),

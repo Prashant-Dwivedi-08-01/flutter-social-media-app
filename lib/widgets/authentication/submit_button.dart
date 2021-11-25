@@ -42,7 +42,7 @@ class SubmitButton extends StatelessWidget {
             gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
-                colors: [Color(0xfffbb448), Color(0xfff7892b)])),
+                colors: [Colors.deepPurpleAccent, Colors.purple])),
         child: title is String
             ? Text(
                 title! as String,

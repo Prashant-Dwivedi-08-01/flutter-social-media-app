@@ -22,9 +22,9 @@ class BezierContainer extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
               gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Color(0xfffbb448), Color(0xffe46b10)])),
+                  begin: Alignment.topCenter, end: Alignment.bottomCenter,
+                  // colors: [Color(0xfffbb448), Color(0xffe46b10)])),
+                  colors: [Colors.deepPurpleAccent, Colors.purple])),
         ),
       ),
     ));

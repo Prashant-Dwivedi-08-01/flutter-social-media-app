@@ -37,7 +37,7 @@ class _HomeViewState extends State<HomeView> {
       drawer: SharedDrawer(),
       // backgroundColor: Color(0xffededed),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.redAccent,
+        backgroundColor: Color(0xff692975),
         onPressed: () {
           Navigator.pushNamed(context, '/createPost');
         },
@@ -113,7 +113,7 @@ class _HomeViewState extends State<HomeView> {
                           ),
                   )),
           Container(
-            color: Colors.redAccent,
+            color: Colors.indigoAccent,
             child: Center(
                 child: Text(
               'Profile Page',
