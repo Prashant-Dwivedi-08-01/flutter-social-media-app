@@ -12,23 +12,19 @@ class CreatePostViewModel extends BaseViewModel {
 
   Post? get createdPost => _createdPost;
 
-  createPost(Map<String, dynamic> post, bool nullStatus) async {
+  createPost(Map<String, dynamic> post) async {
     setState(ViewState.Busy);
 
     String? token = await UserPreferences().getUserToken();
 
     if (token != null) {
-      if (!nullStatus) {
-        var res = await _api.createPost(post, token);
-        if (res is Success) {
-          _createdPost = res.response as Post;
-          errorMessage = null;
-        } else if (res is Failure) {
-          errorMessage = res.errorResponse as String;
-          print('Error in CreatePost Function: ${res.errorResponse}');
-        }
-      } else {
-        errorMessage = 'No field can be empty';
+      var res = await _api.createPost(post, token);
+      if (res is Success) {
+        _createdPost = res.response as Post;
+        errorMessage = null;
+      } else if (res is Failure) {
+        errorMessage = res.errorResponse as String;
+        print('Error in CreatePost Function: ${res.errorResponse}');
       }
     } else {
       errorMessage = 'User not authenticated with proper token';
