@@ -19,111 +19,119 @@ class CreatePostView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: SharedDrawer(),
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 300,
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/images/create-post.png',
-                      width: 300,
-                    ),
-                    Text(
-                      'Make Your Own Memory!',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'Gilroy',
-                          fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
-              ),
-              Consumer<CreatePostViewModel>(
-                builder: (context, model, child) => Form(
-                  key: _formKey,
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              colors: [Colors.lightBlue, Colors.deepPurpleAccent],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter)),
+      child: Scaffold(
+        drawer: SharedDrawer(),
+        backgroundColor: Colors.transparent,
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 300,
                   child: Column(
                     children: [
-                      CreatePostEntryField(
-                        controller: titleController,
-                        hintText: 'Title',
+                      Image.asset(
+                        'assets/images/create-post.png',
+                        width: 300,
                       ),
-                      SizedBox(
-                        height: 3,
-                      ),
-                      CreatePostEntryField(
-                        controller: messageController,
-                        hintText: 'Message',
-                        maxLines: 3,
-                      ),
-                      SizedBox(
-                        height: 3,
-                      ),
-                      CreatePostEntryField(
-                        controller: tagsController,
-                        hintText: 'Tags',
-                      ),
-                      SizedBox(
-                        height: 3,
-                      ),
-                      CreatePostEntryField(
-                        controller: selectedFileController,
-                        hintText: 'Image',
-                      ),
-                      SizedBox(
-                        height: 3,
-                      ),
-                      model.errorMessage != null
-                          ? SizedBox(
-                              child: Text(model.errorMessage!),
-                              height: 50,
-                            )
-                          : SizedBox(
-                              height: 10,
-                            ),
-                      ElevatedButton(
-                          onPressed: () async {
-                            if (!_formKey.currentState!.validate()) return;
-
-                            Map<String, dynamic> post = {
-                              "title": titleController.text,
-                              "message": messageController.text,
-                              "tags": tagsController.text.split(','),
-                              "selectedFile": selectedFileController.text
-                            };
-                            await model.createPost(post);
-
-                            if (model.createdPost != null) {
-                              Navigator.popAndPushNamed(context, '/post',
-                                  arguments: model.createdPost);
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                              elevation: 3, primary: Colors.deepPurpleAccent),
-                          child: model.state == ViewState.Idle
-                              ? Text(
-                                  'Create',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontFamily: 'Gilroy',
-                                      fontWeight: FontWeight.bold),
-                                )
-                              : SizedBox(
-                                  height: 20,
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                  )))
+                      Text(
+                        'Make Your Own Memory!',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontFamily: 'Gilroy',
+                            fontWeight: FontWeight.bold),
+                      )
                     ],
                   ),
                 ),
-              ),
-            ],
+                Consumer<CreatePostViewModel>(
+                  builder: (context, model, child) => Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        CreatePostEntryField(
+                          controller: titleController,
+                          hintText: 'Title',
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        CreatePostEntryField(
+                          controller: messageController,
+                          hintText: 'Message',
+                          maxLines: 3,
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        CreatePostEntryField(
+                          controller: tagsController,
+                          hintText: 'Tags',
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        CreatePostEntryField(
+                          controller: selectedFileController,
+                          hintText: 'Image',
+                        ),
+                        SizedBox(
+                          height: 3,
+                        ),
+                        model.errorMessage != null
+                            ? SizedBox(
+                                child: Text(model.errorMessage!),
+                                height: 50,
+                              )
+                            : SizedBox(
+                                height: 10,
+                              ),
+                        ElevatedButton(
+                            onPressed: () async {
+                              if (!_formKey.currentState!.validate()) return;
+
+                              Map<String, dynamic> post = {
+                                "title": titleController.text,
+                                "message": messageController.text,
+                                "tags": tagsController.text.split(','),
+                                "selectedFile": selectedFileController.text
+                              };
+                              await model.createPost(post);
+
+                              if (model.createdPost != null) {
+                                Navigator.popAndPushNamed(context, '/post',
+                                    arguments: model.createdPost);
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                                elevation: 3, primary: Colors.lightBlue),
+                            child: model.state == ViewState.Idle
+                                ? Text(
+                                    'Create',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontFamily: 'Gilroy',
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                : SizedBox(
+                                    height: 20,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                    )))
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

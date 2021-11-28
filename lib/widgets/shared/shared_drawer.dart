@@ -7,7 +7,8 @@ import 'package:folder_structure/views/login/login_view_model.dart';
 import 'package:provider/src/provider.dart';
 
 class SharedDrawer extends StatelessWidget {
-  const SharedDrawer({Key? key}) : super(key: key);
+  String? username = 'No Name';
+  SharedDrawer({Key? key, this.username}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class SharedDrawer extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  'Welcome, Prashant',
+                  'Welcome, $username',
                   style: TextStyle(
                       fontSize: 22, fontFamily: 'Gilroy', color: Colors.white),
                 )

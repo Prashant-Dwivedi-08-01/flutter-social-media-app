@@ -136,4 +136,25 @@ class Api {
           errorResponse: "Something went wrong-message from client side");
     }
   }
+
+  Future<Object> getPostByUserId(String userId) async {
+    try {
+      var url = Uri.parse('$baseUrl/posts/user/$userId');
+      var response = await client.get(url);
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        return Success(
+            code: response.statusCode, response: postFromJson(data['data']));
+      } else {
+        var data = jsonDecode(response.body);
+        return Failure(
+            code: response.statusCode, errorResponse: data['message']);
+      }
+    } catch (e) {
+      return Failure(
+          code: 500,
+          errorResponse: "Something went wrong-message from client side");
+    }
+  }
 }

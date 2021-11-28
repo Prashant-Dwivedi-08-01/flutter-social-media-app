@@ -23,12 +23,15 @@ class CreatePostEntryField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText!,
         hintStyle: TextStyle(
-            fontFamily: 'Gilroy', fontSize: 15, fontWeight: FontWeight.bold),
+            color: Colors.white,
+            fontFamily: 'Gilroy',
+            fontSize: 15,
+            fontWeight: FontWeight.bold),
         focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.deepPurpleAccent, width: 1.0),
+            borderSide: BorderSide(color: Colors.white, width: 1.0),
             borderRadius: BorderRadius.circular(5)),
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.deepPurpleAccent, width: 1.0),
+            borderSide: BorderSide(color: Colors.white, width: 1.0),
             borderRadius: BorderRadius.circular(5)),
       ),
     );

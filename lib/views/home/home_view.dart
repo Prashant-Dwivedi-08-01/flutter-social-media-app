@@ -3,9 +3,13 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:folder_structure/models/user_model.dart';
 import 'package:folder_structure/services/user_prefrences.dart';
 import 'package:folder_structure/utils/view_state_enum.dart';
+import 'package:folder_structure/views/about/about_view.dart';
 import 'package:folder_structure/views/home/home_view_model.dart';
+import 'package:folder_structure/views/profile/profile_view.dart';
+import 'package:folder_structure/views/profile/profile_view_model.dart';
 import 'package:folder_structure/widgets/home/action_buttons.dart';
 import 'package:folder_structure/widgets/home/hot_destinations.dart';
 import 'package:folder_structure/widgets/home/more_destinations.dart';
@@ -21,6 +25,9 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int _currentIndex = 0;
+  String? username;
+  String? email;
+  String? userId;
   PageController _pageController = PageController();
 
   @override
@@ -30,11 +37,28 @@ class _HomeViewState extends State<HomeView> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setUserData();
+  }
+
+  setUserData() async {
+    User userData = await UserPreferences().getUser();
+    username = userData.name;
+    email = userData.email;
+    userId = userData.id;
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // HomeViewModel _homeViewModel = context.watch<HomeViewModel>();
+    ProfileViewModel profileViewModel = context.watch<ProfileViewModel>();
 
     return Scaffold(
-      drawer: SharedDrawer(),
+      drawer: SharedDrawer(
+        username: username,
+      ),
       // backgroundColor: Color(0xffededed),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xff692975),
@@ -112,27 +136,17 @@ class _HomeViewState extends State<HomeView> {
                             ),
                           ),
                   )),
-          Container(
-            color: Colors.indigoAccent,
-            child: Center(
-                child: Text(
-              'Profile Page',
-              style: TextStyle(fontSize: 25),
-            )),
-          ),
-          Container(
-            color: Colors.greenAccent,
-            child: Center(
-                child: Text(
-              'More Page',
-              style: TextStyle(fontSize: 25),
-            )),
-          ),
+          ProfileView(username: username, email: email, userId: userId),
+          AboutView()
         ],
       ),
       bottomNavigationBar: BottomNavyBar(
         selectedIndex: _currentIndex,
         onItemSelected: (index) {
+          if (index == 1) {
+            print("1 is pressed");
+            profileViewModel.getPostByUserId(userId);
+          }
           setState(() => _currentIndex = index);
           _pageController.jumpToPage(index);
         },
@@ -146,7 +160,7 @@ class _HomeViewState extends State<HomeView> {
               icon: Icon(Icons.person),
               activeColor: Colors.deepPurpleAccent),
           BottomNavyBarItem(
-              title: Text('More'),
+              title: Text('About'),
               icon: Icon(Icons.more),
               activeColor: Colors.deepPurpleAccent),
         ],
