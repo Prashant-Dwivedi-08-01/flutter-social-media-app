@@ -133,7 +133,7 @@ class Api {
     } catch (e) {
       return Failure(
           code: 500,
-          errorResponse: "Something went wrong-message from client side");
+          errorResponse: "Something went wrong-message from client side: $e");
     }
   }
 
@@ -154,7 +154,31 @@ class Api {
     } catch (e) {
       return Failure(
           code: 500,
-          errorResponse: "Something went wrong-message from client side");
+          errorResponse: "Something went wrong-message from client side: $e");
+    }
+  }
+
+  Future<Object> likePost(String postId, String token) async {
+    try {
+      var url = Uri.parse('$baseUrl/posts/$postId/likePost');
+      var headers = {
+        'Authorization': 'Bearer $token',
+      };
+
+      var response = await client.patch(url, headers: headers);
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        return Success(
+            code: response.statusCode, response: Post.fromJson(data));
+      } else {
+        var data = jsonDecode(response.body);
+        return Failure(
+            code: response.statusCode, errorResponse: data['message']);
+      }
+    } catch (e) {
+      return Failure(
+          code: 500,
+          errorResponse: "Something went wrong-message from client side: $e");
     }
   }
 }

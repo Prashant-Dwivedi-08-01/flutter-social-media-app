@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:folder_structure/utils/view_state_enum.dart';
 import 'package:folder_structure/views/createPost/createpost_view_model.dart';
+import 'package:folder_structure/views/post/post_view_model.dart';
 import 'package:folder_structure/widgets/authentication/submit_button.dart';
 import 'package:folder_structure/widgets/createPost/entry_field.dart';
 import 'package:folder_structure/widgets/shared/shared_drawer.dart';
@@ -107,6 +108,9 @@ class CreatePostView extends StatelessWidget {
                               await model.createPost(post);
 
                               if (model.createdPost != null) {
+                                PostViewModel postViewModel =
+                                    context.read<PostViewModel>();
+                                postViewModel.setThisPost(model.createdPost!);
                                 Navigator.popAndPushNamed(context, '/post',
                                     arguments: model.createdPost);
                               }

@@ -5,7 +5,16 @@ import 'package:flutter/material.dart';
 
 class PostLikes extends StatelessWidget {
   int? numberOfLikes;
-  PostLikes({Key? key, this.numberOfLikes}) : super(key: key);
+  String? postId;
+  Function? likeThisPost;
+  Function? getThisPost;
+  PostLikes(
+      {Key? key,
+      this.numberOfLikes,
+      this.likeThisPost,
+      this.postId,
+      this.getThisPost})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +24,14 @@ class PostLikes extends StatelessWidget {
         Column(
           children: [
             IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  if (likeThisPost != null) {
+                    await likeThisPost!(postId);
+                    if (getThisPost != null) {
+                      await getThisPost!(postId);
+                    }
+                  }
+                },
                 icon: Icon(CupertinoIcons.hand_thumbsup_fill),
                 iconSize: 35,
                 color: Colors.deepPurpleAccent),
