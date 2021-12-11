@@ -122,11 +122,14 @@ class _HomeViewState extends State<HomeView> {
                                     height: 20,
                                   ),
                                   Text(
-                                    'More',
+                                    'More Memories',
                                     style: TextStyle(
                                         fontFamily: 'Gilroy',
                                         fontWeight: FontWeight.bold,
                                         fontSize: 25),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
                                   ),
                                   MoreDestinations(
                                     homeModel: homeModel,

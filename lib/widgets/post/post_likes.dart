@@ -2,19 +2,23 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:folder_structure/models/post_model.dart';
+import 'package:folder_structure/models/user_model.dart';
+import 'package:folder_structure/services/user_prefrences.dart';
+import 'package:folder_structure/views/post/post_view_model.dart';
 
 class PostLikes extends StatelessWidget {
+  PostViewModel? model;
   int? numberOfLikes;
   String? postId;
   Function? likeThisPost;
-  Function? getThisPost;
-  PostLikes(
-      {Key? key,
-      this.numberOfLikes,
-      this.likeThisPost,
-      this.postId,
-      this.getThisPost})
-      : super(key: key);
+  PostLikes({
+    Key? key,
+    this.model,
+    this.numberOfLikes,
+    this.likeThisPost,
+    this.postId,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +30,13 @@ class PostLikes extends StatelessWidget {
             IconButton(
                 onPressed: () async {
                   if (likeThisPost != null) {
-                    await likeThisPost!(postId);
-                    if (getThisPost != null) {
-                      await getThisPost!(postId);
-                    }
+                    await likeThisPost!(postId); //homeViewModel
+                    await model!.getThisPost(postId!); //postViewModel
                   }
                 },
-                icon: Icon(CupertinoIcons.hand_thumbsup_fill),
+                icon: model!.hasLiked == true
+                    ? Icon(CupertinoIcons.hand_thumbsup_fill)
+                    : Icon(CupertinoIcons.hand_thumbsup),
                 iconSize: 35,
                 color: Colors.deepPurpleAccent),
             Text(

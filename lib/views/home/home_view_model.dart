@@ -40,7 +40,6 @@ class HomeViewModel extends BaseViewModel {
         _postList = _postList
             .map((post) => post.id != postId ? post : currentPost)
             .toList();
-
         errorMessage = null;
       } else if (res is Failure) {
         errorMessage = res.errorResponse as String;

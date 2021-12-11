@@ -12,55 +12,36 @@ class PostViewModel extends BaseViewModel {
   Post? _currentPost;
   Post? get currentPost => _currentPost;
   String? errorMessage;
+  bool? hasLiked;
 
-  setThisPost(Post post) {
+  setThisPost(Post post) async {
     _currentPost = post;
-  }
-
-  Future<bool> hasLiked() async {
     User user = await UserPreferences().getUser();
-    if (currentPost!.likes!.contains(user.id)) {
-      return true;
+    if (_currentPost!.likes!.contains(user.id)) {
+      hasLiked = true;
     } else {
-      return false;
+      hasLiked = false;
     }
   }
 
-  // USELESS FUNCTION TILL NOW
   getThisPost(String postId) async {
     setState(ViewState.Busy);
 
     var res = await _api.getPostById(postId);
     if (res is Success) {
       _currentPost = Post.fromJson(res.response as Map<String, dynamic>);
+
+      User user = await UserPreferences().getUser();
+
+      if (_currentPost!.likes!.contains(user.id)) {
+        hasLiked = true;
+      } else {
+        hasLiked = false;
+      }
     } else if (res is Failure) {
       print('Response is: ${res.errorResponse}');
     }
 
     setState(ViewState.Idle);
   }
-
-  // USELESS FUNCTION TILL NOW
-  /*
-  likeThisPost(String postId) async {
-    setState(ViewState.Busy);
-
-    var token = await UserPreferences().getUserToken();
-    if (token != null) {
-      var res = await _api.likePost(postId, token);
-      if (res is Success) {
-        _currentPost = res.response as Post;
-        PostView(
-          post: _currentPost,
-        );
-        errorMessage = null;
-      } else if (res is Failure) {
-        errorMessage = res.errorResponse as String;
-      }
-    } else {
-      errorMessage = 'User token expired or invalid';
-    }
-
-    setState(ViewState.Idle);
-  }*/
 }

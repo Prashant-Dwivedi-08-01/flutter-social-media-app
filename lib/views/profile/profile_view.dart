@@ -19,11 +19,12 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      //method to give grandient to screen. Here although we haven't given any as we kept both the colors same
       decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Colors.purple, Colors.deepPurpleAccent])),
+              colors: [Color(0xffededed), Color(0xffededed)])),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: SingleChildScrollView(
@@ -33,7 +34,7 @@ class ProfileView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 80,
+                  height: 20,
                 ),
                 SizedBox(
                   height: 210,
@@ -93,7 +94,7 @@ class ProfileView extends StatelessWidget {
                 // POSTS FROM USER
                 Text('Your Memories',
                     style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontFamily: 'Gilroy',
                         fontWeight: FontWeight.bold,
                         fontSize: 20)),

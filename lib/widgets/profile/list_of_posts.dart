@@ -22,7 +22,7 @@ class ListOfPosts extends StatelessWidget {
             padding: EdgeInsets.all(15),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: Colors.deepPurpleAccent.shade100),
+                color: Colors.deepPurpleAccent),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -63,6 +63,7 @@ class ListOfPosts extends StatelessWidget {
                       Text(
                         post.title!,
                         style: TextStyle(
+                            color: Colors.white,
                             fontFamily: 'Gilroy',
                             fontWeight: FontWeight.bold,
                             fontSize: 18),
@@ -71,7 +72,10 @@ class ListOfPosts extends StatelessWidget {
                         post.message!,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
-                        style: TextStyle(fontFamily: 'Gilroy', fontSize: 18),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Gilroy',
+                            fontSize: 18),
                       ),
                     ],
                   ),

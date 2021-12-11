@@ -63,10 +63,9 @@ class HotDestinations extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton(
-                      onPressed: () {
-                        print(post.id);
+                      onPressed: () async {
                         PostViewModel model = context.read<PostViewModel>();
-                        model.setThisPost(post);
+                        await model.setThisPost(post);
                         Navigator.pushNamed(context, '/post', arguments: post);
                       },
                       style: ElevatedButton.styleFrom(

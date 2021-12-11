@@ -95,9 +95,9 @@ class PostView extends StatelessWidget {
                         color: Colors.deepPurpleAccent,
                       )
                     : PostLikes(
+                        model: postViewModel,
                         numberOfLikes: postViewModel.currentPost!.likes!.length,
                         likeThisPost: homeViewModel.likeThisPost,
-                        getThisPost: postViewModel.getThisPost,
                         postId: post!.id);
               }),
               SizedBox(
