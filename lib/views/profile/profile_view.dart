@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:folder_structure/utils/view_state_enum.dart';
 import 'package:folder_structure/views/profile/profile_view_model.dart';
 import 'package:folder_structure/widgets/profile/list_of_posts.dart';
@@ -104,7 +105,10 @@ class ProfileView extends StatelessWidget {
                 Consumer<ProfileViewModel>(
                   builder: (context, profileModel, child) =>
                       profileModel.state == ViewState.Busy
-                          ? CircularProgressIndicator()
+                          ? SpinKitThreeInOut(
+                              size: 50,
+                              color: Colors.deepPurpleAccent,
+                            )
                           : ListOfPosts(
                               profileModel: profileModel,
                             ),

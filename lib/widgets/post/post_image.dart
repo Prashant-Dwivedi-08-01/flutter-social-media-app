@@ -2,6 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class PostImage extends StatelessWidget {
   String? postId;
@@ -13,8 +14,9 @@ class PostImage extends StatelessWidget {
       tag: 'post-image-$postId',
       child: CachedNetworkImage(
         progressIndicatorBuilder: (context, url, progress) => Center(
-          child: CircularProgressIndicator(
-            value: progress.progress,
+          child: SpinKitThreeInOut(
+            size: 50,
+            color: Colors.deepPurpleAccent,
           ),
         ),
         imageUrl:

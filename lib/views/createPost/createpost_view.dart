@@ -104,7 +104,8 @@ class CreatePostView extends StatelessWidget {
                             if (model.createdPost != null) {
                               PostViewModel postViewModel =
                                   context.read<PostViewModel>();
-                              postViewModel.setThisPost(model.createdPost!);
+                              await postViewModel
+                                  .setThisPost(model.createdPost!);
                               Navigator.popAndPushNamed(context, '/post',
                                   arguments: model.createdPost);
                             }

@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:folder_structure/utils/view_state_enum.dart';
 import 'package:folder_structure/views/login/login_view_model.dart';
 import 'package:folder_structure/widgets/authentication/bezier_container.dart';
@@ -82,7 +83,8 @@ class LoginView extends StatelessWidget {
                                   scale: 0.5,
                                   child: SizedBox(
                                     height: 25,
-                                    child: CircularProgressIndicator(
+                                    child: SpinKitThreeInOut(
+                                      size: 50,
                                       color: Colors.white,
                                     ),
                                   ),

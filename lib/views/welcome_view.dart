@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:folder_structure/models/user_model.dart';
 import 'package:folder_structure/services/user_prefrences.dart';
 import 'package:folder_structure/views/createPost/createpost_view.dart';
@@ -33,7 +34,8 @@ class WelcomeView extends StatelessWidget {
               }
             }
           } else {
-            return CircularProgressIndicator(
+            return SpinKitThreeInOut(
+              size: 50,
               color: Colors.white,
             );
           }

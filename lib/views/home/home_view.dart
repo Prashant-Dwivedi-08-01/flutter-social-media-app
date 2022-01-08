@@ -3,6 +3,7 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:folder_structure/models/user_model.dart';
 import 'package:folder_structure/services/user_prefrences.dart';
 import 'package:folder_structure/utils/view_state_enum.dart';
@@ -92,7 +93,10 @@ class _HomeViewState extends State<HomeView> {
               builder: (context, homeModel, child) => Center(
                     child: homeModel.state == ViewState.Busy
                         ? Center(
-                            child: CircularProgressIndicator(),
+                            child: SpinKitThreeInOut(
+                              size: 50,
+                              color: Colors.deepPurpleAccent,
+                            ),
                           )
                         : Padding(
                             padding: const EdgeInsets.all(12.0),
@@ -147,7 +151,6 @@ class _HomeViewState extends State<HomeView> {
         selectedIndex: _currentIndex,
         onItemSelected: (index) {
           if (index == 1) {
-            print("1 is pressed");
             profileViewModel.getPostByUserId(userId);
           }
           setState(() => _currentIndex = index);

@@ -18,6 +18,7 @@ class Api {
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
+        print(data['data']);
         return Success(
             code: response.statusCode, response: postFromJson(data['data']));
       } else {
@@ -26,7 +27,9 @@ class Api {
       }
     } catch (e) {
       return Failure(
-          code: 500, errorResponse: "Something went wrong client side");
+          code: 500,
+          errorResponse:
+              "Something went wrong client side in Get all the posts: $e");
     }
   }
 
@@ -60,6 +63,7 @@ class Api {
       var response = await client.post(url, body: body);
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
+        print(data['token']);
         return Success(
             code: response.statusCode,
             response: User.fromJson(data['result']),
@@ -166,6 +170,31 @@ class Api {
       };
 
       var response = await client.patch(url, headers: headers);
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        return Success(
+            code: response.statusCode, response: Post.fromJson(data));
+      } else {
+        var data = jsonDecode(response.body);
+        return Failure(
+            code: response.statusCode, errorResponse: data['message']);
+      }
+    } catch (e) {
+      return Failure(
+          code: 500,
+          errorResponse: "Something went wrong-message from client side: $e");
+    }
+  }
+
+  Future<Object> commentPost(
+      String postId, String comment, String token) async {
+    try {
+      var url = Uri.parse('$baseUrl/posts/$postId/comment');
+      var headers = {'Authorization': 'Bearer $token'};
+      var body = {'comment': comment};
+
+      var response = await client.post(url, headers: headers, body: body);
+
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         return Success(

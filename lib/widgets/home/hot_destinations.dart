@@ -2,6 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:folder_structure/models/post_model.dart';
 import 'package:folder_structure/views/home/home_view.dart';
 import 'package:folder_structure/views/home/home_view_model.dart';
@@ -35,8 +36,9 @@ class HotDestinations extends StatelessWidget {
                     child: CachedNetworkImage(
                       progressIndicatorBuilder: (context, url, progress) =>
                           Center(
-                        child: CircularProgressIndicator(
-                          value: progress.progress,
+                        child: SpinKitThreeInOut(
+                          size: 25,
+                          color: Colors.deepPurpleAccent,
                         ),
                       ),
                       imageUrl:

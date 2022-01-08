@@ -36,11 +36,37 @@ class HomeViewModel extends BaseViewModel {
     if (token != null) {
       var res = await _api.likePost(postId, token);
       if (res is Success) {
-        Post currentPost = res.response as Post;
+        Post updatedPost = res.response as Post;
         _postList = _postList
-            .map((post) => post.id != postId ? post : currentPost)
+            .map((post) => post.id != postId ? post : updatedPost)
             .toList();
         errorMessage = null;
+      } else if (res is Failure) {
+        errorMessage = res.errorResponse as String;
+      }
+    } else {
+      errorMessage = 'User token expired or invalid';
+    }
+
+    setState(ViewState.Idle);
+  }
+
+  commentOnThisPost(String postId, String comment) async {
+    setState(ViewState.Busy);
+
+    var token = await UserPreferences().getUserToken();
+    var user = await UserPreferences().getUser();
+    if (token != null) {
+      comment = '${user.name}: $comment';
+      print("Comment is $comment");
+      var res = await _api.commentPost(postId, comment, token);
+      if (res is Success) {
+        Post updatedPost = res.response as Post;
+        _postList = _postList
+            .map((post) => post.id != postId ? post : updatedPost)
+            .toList();
+
+        print("Comment Success");
       } else if (res is Failure) {
         errorMessage = res.errorResponse as String;
       }

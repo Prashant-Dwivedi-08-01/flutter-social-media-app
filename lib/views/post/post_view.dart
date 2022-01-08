@@ -98,17 +98,28 @@ class PostView extends StatelessWidget {
                         model: postViewModel,
                         numberOfLikes: postViewModel.currentPost!.likes!.length,
                         likeThisPost: homeViewModel.likeThisPost,
-                        postId: post!.id);
+                        postId: postViewModel.currentPost!.id);
               }),
               SizedBox(
                 height: 20,
               ),
-              PostCommentField(),
+              Consumer<HomeViewModel>(
+                builder: (context, homeViewModel, child) {
+                  return PostCommentField(
+                      model: postViewModel,
+                      commentOnThisPost: homeViewModel.commentOnThisPost,
+                      postId: postViewModel.currentPost!.id);
+                },
+              ),
               SizedBox(
                 height: 10,
               ),
-              PostCommentList(
-                comments: post!.comments,
+              Consumer<PostViewModel>(
+                builder: (context, postViewModel, child) {
+                  return PostCommentList(
+                    comments: postViewModel.currentPost!.comments,
+                  );
+                },
               ),
             ],
           ),
