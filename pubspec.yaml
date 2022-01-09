@@ -45,6 +45,7 @@ dependencies:
   bottom_navy_bar: ^6.0.0
   url_launcher: ^6.0.15
   flutter_spinkit: ^5.1.0
+  badges: ^2.0.2
 
 dev_dependencies:
   flutter_test:

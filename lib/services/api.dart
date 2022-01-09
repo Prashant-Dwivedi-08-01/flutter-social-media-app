@@ -18,7 +18,6 @@ class Api {
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        print(data['data']);
         return Success(
             code: response.statusCode, response: postFromJson(data['data']));
       } else {
@@ -208,6 +207,34 @@ class Api {
       return Failure(
           code: 500,
           errorResponse: "Something went wrong-message from client side: $e");
+    }
+  }
+
+  Future<Object> addPostToBucketList(String postId, String token) async {
+    try {
+      var url = Uri.parse('$baseUrl/user/$postId/add-to-bucketlist');
+      var headers = {
+        'Authorization': 'Bearer $token',
+      };
+      var response = await client.post(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+
+        return Success(
+          code: response.statusCode,
+          response: User.fromJson(data),
+        );
+      } else {
+        var data = jsonDecode(response.body);
+        return Failure(
+            code: response.statusCode, errorResponse: data['message']);
+      }
+    } catch (e) {
+      return Failure(
+          code: 500,
+          errorResponse:
+              "Something went wrong-message from client side. Error: $e");
     }
   }
 }

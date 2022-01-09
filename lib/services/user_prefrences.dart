@@ -10,6 +10,7 @@ class UserPreferences {
     prefs.setString('name', user.name!);
     prefs.setString('email', user.email!);
     prefs.setString('password', user.password!);
+    prefs.setStringList('bucketList', user.bucketList!);
   }
 
   Future<User> getUser() async {
@@ -19,8 +20,14 @@ class UserPreferences {
     String? name = prefs.getString('name');
     String? email = prefs.getString('email');
     String? password = prefs.getString('password');
+    List<String>? bucketList = prefs.getStringList('bucketList');
 
-    return User(id: id, name: name, email: email, password: password);
+    return User(
+        id: id,
+        name: name,
+        email: email,
+        password: password,
+        bucketList: bucketList);
   }
 
   removeUser() async {
@@ -30,6 +37,7 @@ class UserPreferences {
     prefs.remove('name');
     prefs.remove('email');
     prefs.remove('password');
+    prefs.remove('bucketList');
   }
 
   // TOKEN

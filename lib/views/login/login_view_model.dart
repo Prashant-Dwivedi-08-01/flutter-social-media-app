@@ -78,7 +78,8 @@ class LoginViewModel extends BaseViewModel {
           email: user.email,
           name: user.displayName,
           id: user.id,
-          password: user.id);
+          password: user.id,
+          bucketList: []);
 
       var token = await user.authentication;
 

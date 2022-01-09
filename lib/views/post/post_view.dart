@@ -26,6 +26,8 @@ class PostView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    HomeViewModel homeModel = context.read<HomeViewModel>();
+    PostViewModel postModel = context.read<PostViewModel>();
     return Scaffold(
       drawer: SharedDrawer(),
       bottomNavigationBar: Padding(
@@ -37,7 +39,9 @@ class PostView extends StatelessWidget {
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
                 primary: Colors.deepPurpleAccent, fixedSize: Size(150, 25)),
-            onPressed: () {},
+            onPressed: () {
+              homeModel.addThisPostToBucketList(postModel.currentPost!.id!);
+            },
             child: Text('Add to Bucketlist',
                 style: TextStyle(
                   fontFamily: 'Gilroy',

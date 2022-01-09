@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unnecessary_new
 
+import 'package:badges/badges.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,7 @@ class _HomeViewState extends State<HomeView> {
   String? username;
   String? email;
   String? userId;
+  // List<String>? bucketList = [];
   PageController _pageController = PageController();
 
   @override
@@ -49,6 +51,7 @@ class _HomeViewState extends State<HomeView> {
     username = userData.name;
     email = userData.email;
     userId = userData.id;
+    // bucketList = userData.bucketList;
     setState(() {});
   }
 
@@ -74,9 +77,24 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         actions: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(Icons.notification_add),
-          )
+              padding: const EdgeInsets.all(15.0),
+              child: Consumer<HomeViewModel>(
+                builder: (context, model, child) => Badge(
+                  toAnimate: true,
+                  badgeContent: Text(
+                    '${model.bucketList.length}',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                  shape: BadgeShape.square,
+                  badgeColor: Color(0xff692975),
+                  borderRadius: BorderRadius.circular(8),
+                  child: Icon(
+                    CupertinoIcons.square_favorites_alt_fill,
+                    size: 30,
+                  ),
+                ),
+              ))
         ],
         title: Text("Memories"),
         backgroundColor: Colors.deepPurpleAccent, //Color(0xff66005a)
